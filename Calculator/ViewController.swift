@@ -37,19 +37,20 @@ class ViewController: UIViewController {
         }
     }
     
+    private var brain = CalculatorBrain()
+    
     @IBAction func performOperation(_ sender: UIButton) {
-        userIsTypeing = false;
+        if userIsTypeing {
+            brain.setOperand(displayValue)
+            userIsTypeing = false;
+        }
         if let matchematicalSymbol = sender.currentTitle {
-            
-            switch matchematicalSymbol {
-            case "π":
-                displayValue = Double.pi
-            case "√":
-                displayValue = sqrt(displayValue)
-            default:
-                break
-            }
+            brain.performOperation(matchematicalSymbol)
+        }
+        if brain.result != nil {
+            displayValue = brain.result!
         }
     }
 }
 
+ 
